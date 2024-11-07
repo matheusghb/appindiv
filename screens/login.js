@@ -1,7 +1,29 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, SafeAreaView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function LoginScreen ({navigation}) {
+
+  const [userData, setUserData] = React.useState(null);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('UserData');
+        if (jsonValue !== null) {
+          setUserData(JSON.parse(jsonValue));
+          setUserData(data)
+          navigation.navigate('Cadastro');
+      }
+    } catch (e) {
+      console.error("Esse usuário não foi encontrado.")
+    }
+  };
+
+  fetchUserData();
+}, []);
+
   return (
     <SafeAreaView style={styles.background}>
       <View style={styles.container}>

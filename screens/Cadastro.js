@@ -1,7 +1,32 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, SafeAreaView } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CadastroScreen ({navigation}) {
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [nome, setNome] = useState('');
+  const [cep, setCep] = useState('');
+  const [lo, setLo] = useState('');
+  const [ba, setBa] = useState('');
+  const [mu, setMu] = useState('');
+  const [es, setEs] = useState('');
+
+  const handleCadastro = async () => {
+    const userData = {
+      email,
+      senha,
+      nome,
+      cep,
+      lo,
+      ba,
+      mu,
+      es,
+    };
+    await AsyncStorage.setItem('userData', JSON.stringify(userData));
+    navigation.navigate('Login')
+  }
+
     return (
       <SafeAreaView style={styles.background}>
         <View style={styles.container}>
@@ -12,23 +37,67 @@ export default function CadastroScreen ({navigation}) {
           <View style={styles.inputView}>
             <TextInput
             style={styles.inputText}
-            placeholder='Login'
+            placeholder='E-mail:'
             placeholderTextColor={'#003f5c'}
+            value={email}
+            onChangeText={setEmail}
+            />
+            <TextInput
+            style={styles.inputText}
+            placeholder='Senha:'
+            placeholderTextColor={'#003f5c'}
+            secureTextEntry={true}
+            value={senha}
+            onChangeText={setSenha}
             />
           </View>
           <View style={styles.inputView}>
-            <TextInput
-            style={styles.inputText}
-            placeholder='Senha'
-            placeholderTextColor={'#003f5c'}
+
+            <TextInput style={styles.inputText}
+            placeholder='Nome:'
+            placeholderTextColor={'#a67872'}
             secureTextEntry={true}
+            value={nome}
+            onChangeText={setNome}
+            />
+            <TextInput style={styles.inputText}
+            placeholder='CEP:'
+            placeholderTextColor={'#a67872'}
+            secureTextEntry={true}
+            value={cep}
+            onChangeText={setCep}
+            />
+            <TextInput style={styles.inputText}
+            placeholder='Logradouro:'
+            placeholderTextColor={'#a67872'}
+            secureTextEntry={true}
+            value={logradouro}
+            onChangeText={setLogradouro}
+            />
+            <TextInput style={styles.inputText}
+            placeholder='Bairro:'
+            placeholderTextColor={'#a67872'}
+            secureTextEntry={true}
+            value={bairro}
+            onChangeText={setBairro}
+            />
+            <TextInput style={styles.inputText}
+            placeholder='Município:'
+            placeholderTextColor={'#a67872'}
+            secureTextEntry={true}
+            value={municipio}
+            onChangeText={setMunicipio}
+            />
+            <TextInput style={styles.inputText}
+            placeholder='Estado:'
+            placeholderTextColor={'#a67872'}
+            secureTextEntry={true}
+            value={estado}
+            onChangeText={setEstado}
             />
           </View>
-          <TouchableOpacity style={styles.loginBtn}>
-            <Text style={styles.loginText}>Login</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.loginBtn1} onPress={() => navigation.navigate('Cadastro')}>
-            <Text style={styles.loginText}>Cadastro</Text>
+          <TouchableOpacity style={styles.loginBtn1} onPress={handleCadastro}>
+            <Text style={styles.loginText}>Cadastrar</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
